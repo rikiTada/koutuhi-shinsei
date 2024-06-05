@@ -18,6 +18,13 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import {
+  SelectItem,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+  Select,
+} from "@/components/ui/select";
 
 export default function ContactForm({
   setIsLoading,
@@ -25,12 +32,13 @@ export default function ContactForm({
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const router = useRouter();
+  const currentMonth = new Date().getMonth() + 1 + "";
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      recipient: "",
-      month: "",
+      recipient: "keiri@autumn-co.jp",
+      month: currentMonth,
       name: "",
       draft: false,
       options: null,
@@ -92,13 +100,25 @@ export default function ContactForm({
                 <FormLabel className="text-primary/70 text-[0.75em]">
                   申請月
                 </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="例)  山田 太郎"
-                    className="placeholder:text-muted-foreground/50"
-                    {...field}
-                  />
-                </FormControl>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  {/* 現在の月を出力 */}
+
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue className="placeholder:text-muted-foreground/50" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className="aww-1/4 max-h-56">
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((value) => (
+                      <SelectItem key={value} value={`${value}`}>
+                        {value} 月
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </FormItem>
             )}
           />

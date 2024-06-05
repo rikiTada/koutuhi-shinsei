@@ -48,4 +48,5 @@ npx shadcn-ui@latest add sonner
 npx shadcn-ui@latest add button
 npm i react-hook-form
 npx shadcn-ui@latest add switch
+npx shadcn-ui@latest add select
 ```
